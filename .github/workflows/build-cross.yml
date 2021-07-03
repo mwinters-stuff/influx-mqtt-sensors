@@ -1,0 +1,87 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Build Cross
+
+on:
+  workflow_dispatch:
+
+jobs:
+  arm64_job:
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - uses: actions/checkout@v2
+        with:  
+          fetch-depth: 0  
+      - name: Version  
+        id: version  
+        uses: juliansangillo/tag-version@v1  
+        with:  
+            production-branch: release
+            test-branch: test  
+            dev-branch: master
+      
+      - name: Create Draft Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{steps.version.outputs.revision}}
+          release_name: test
+          draft: true
+          prerelease: ${{steps.version.outputs.is-prelease}}
+
+      - uses: uraimo/run-on-arch-action@v2.0.5
+        name: Run Commands
+        id: runcmd
+        with:
+          arch: aarch64
+          distro: ubuntu20.04
+
+          # Not required, but speeds up builds
+          githubToken: ${{ github.token }}
+
+          # Create an artifacts directory
+          setup: |
+            mkdir -p "${PWD}/artifacts"
+          # Mount the artifacts directory as /artifacts in the container
+          dockerRunArgs: |
+            --volume "${PWD}/artifacts:/artifacts"
+
+          # Pass some environment variables to the container
+          env: | # YAML, but pipe character is necessary
+            artifact_name: influx-mqtt-sensors-arm64
+          #  ${{ matrix.distro }}_${{ matrix.arch }}
+          # The shell to run commands with in the container
+          shell: /bin/sh
+          install: |
+            apt-get update -q -y && apt-get install -q -y wget bash unzip git zip
+            wget https://storage.googleapis.com/dart-archive/channels/stable/release/2.13.4/sdk/dartsdk-linux-arm64-release.zip
+            unzip dartsdk-linux-arm64-release.zip
+            rm dartsdk-linux-arm64-release.zip
+          
+          run: |
+            /dart-sdk/bin/dart pub get
+            /dart-sdk/bin/dart compile exe -o ${artifact_name} bin/influx_mqtt_sensors.dart
+            zip ${artifact_name} ${artifact_name}
+
+      - uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: influx-mqtt-sensors-arm64.zip
+          asset_name: influx-mqtt-sensors-arm64.zip
+          asset_content_type: application/zip
+
+      - uses: eregon/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_id: ${{ steps.create_release.outputs.id }}
+

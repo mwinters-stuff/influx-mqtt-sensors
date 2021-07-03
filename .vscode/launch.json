@@ -1,0 +1,26 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "influx-mqtt-sensors",
+      "request": "launch",
+      "type": "dart",
+      "env":
+      {
+        "INFLUX_BUCKET":"winters/autogen",
+        "INFLUX_ORG":"winters.nz",
+        "INFLUX_TOKEN":"lxr7C60MCMM8z7J9KZFyHj3t6beUnTcuxKozVjdSiSEiLsEzhEn82mk4CgP2zbP8r9EMYwrt_7Nl74cav4Zw7w==",
+        "INFLUX_URL":"http://influxdb:8086",
+
+        "MQTT_USERNAME":"influxdb",
+        "MQTT_PASSWORD":"dbinflux",
+        "MQTT_HOSTNAME":"mosquitto",
+        "MQTT_PORT":"1883"
+
+      }
+    }
+  ]
+}
