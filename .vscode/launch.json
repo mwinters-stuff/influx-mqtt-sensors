@@ -8,11 +8,12 @@
       "name": "influx-mqtt-sensors",
       "request": "launch",
       "type": "dart",
+      "program": "bin/influx_mqtt_sensors.dart",
       "env":
       {
-        "INFLUX_BUCKET":"winters/autogen",
+        "INFLUX_BUCKET":"demo/autogen",
         "INFLUX_ORG":"winters.nz",
-        "INFLUX_TOKEN":"lxr7C60MCMM8z7J9KZFyHj3t6beUnTcuxKozVjdSiSEiLsEzhEn82mk4CgP2zbP8r9EMYwrt_7Nl74cav4Zw7w==",
+        "INFLUX_TOKEN":"t404FS9X2s_2H5RCQSa72bxVFIsJQl1V5zXn_GWmWhKzmzo9b5jpNlbPlwQ-FtJy31Bp_vb5rdAu0Q89GRoVRQ==",
         "INFLUX_URL":"http://influxdb:8086",
 
         "MQTT_USERNAME":"influxdb",
