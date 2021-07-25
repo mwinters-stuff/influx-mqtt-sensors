@@ -77,7 +77,7 @@ void messagePublished(
         'sensor-data,location=garage,sensor=environmental temperature=$messageStr';
   }
   if (message.variableHeader!.topicName == MQTT_FEED_DOOR_POSITION) {
-    request.body = 'garage-door,door=left door-position=$messageStr';
+    request.body = 'garage-door,door=left door-position="$messageStr"';
   }
   if (message.variableHeader!.topicName == MQTT_FEED_DOOR_SONIC_CM) {
     var distance = double.tryParse(messageStr);
@@ -97,7 +97,7 @@ void main(List<String> arguments) async {
   final env = Platform.environment;
 
   final mqttClient = MqttServerClient.withPort(
-      env['MQTT_HOSTNAME']!, 'mqtt-inflsux', int.parse(env['MQTT_PORT']!));
+      env['MQTT_HOSTNAME']!, 'mqtt-influx', int.parse(env['MQTT_PORT']!));
   mqttClient.logging(on: false);
   mqttClient.keepAlivePeriod = 20;
   mqttClient.autoReconnect = true;
