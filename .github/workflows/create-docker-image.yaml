@@ -1,6 +1,9 @@
 name: Create docker image
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types: [start-build]
+    
 jobs:
   buildx:
     runs-on: ubuntu-latest
@@ -8,9 +11,9 @@ jobs:
     -
       name: Checkout
       uses: actions/checkout@v2
-    -
-      name: Set up QEMU
-      uses: docker/setup-qemu-action@v1
+#     -
+#       name: Set up QEMU
+#       uses: docker/setup-qemu-action@v1
     -
       name: Login to GitHub Container Registry
       uses: docker/login-action@v1 
@@ -39,7 +42,7 @@ jobs:
       name: Build and push
       uses: docker/build-push-action@v2
       with:
-        platforms: linux/arm64
+        platforms: linux/amd64
         push: true
         tags: |
           ghcr.io/${{github.repository}}:latest
