@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:arm64v8-bionic
+FROM ghcr.io/linuxserver/baseimage-ubuntu:amd64-bionic
 
 RUN apt-get update -q -y && apt-get install -q -y wget bash unzip git zip && \
     echo "getting dart sdk" && \
