@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  influx-mqtt-sensors:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2022-06-24T04:35:30.334011276Z"
+    description: A helm chart for mqtt influx sensors bridge
+    digest: 9321d3daccb93061770ed8a2eb56078d28e68d5316fd79da27cc3ef97115f75f
+    name: influx-mqtt-sensors
+    type: application
+    urls:
+    - influx-mqtt-sensors-0.0.2.tgz
+    version: 0.0.2
+generated: "2022-06-24T04:35:30.333288327Z"
