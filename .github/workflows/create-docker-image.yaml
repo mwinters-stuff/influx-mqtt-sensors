@@ -50,7 +50,7 @@ jobs:
 
 
     -
-      name: version
+      name: version-out
       run: echo "Version ${{steps.version.outputs.new_version}}"
     - 
       name: Build and push
