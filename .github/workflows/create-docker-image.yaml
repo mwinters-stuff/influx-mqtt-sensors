@@ -4,13 +4,32 @@ on:
   repository_dispatch:
     types: [start-build]
     
+permissions:
+  contents: write # needed to write releases
+  id-token: write # needed for keyless signing
+  packages: write # needed for ghcr access
+
+
+
 jobs:
-  buildx:
+  build:
     runs-on: ubuntu-latest
     steps:
     -
       name: Checkout
       uses: actions/checkout@v2
+
+    - name: Setup Helm
+      uses: ./.github/actions/helm
+      with:
+        version: 3.9.0
+
+    - name: Bump version and push tag
+      id: version
+      uses: hennejg/github-tag-action@v4.3.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        
     -
       name: Set up QEMU
       uses: docker/setup-qemu-action@v1
@@ -29,15 +48,10 @@ jobs:
       name: Available platforms
       run: echo ${{ steps.buildx.outputs.platforms }}
 
-    -
-      id: modify
-      name: Modify scripts and get version
-      run: |
-        output=$(date -u '+%Y%m%d%H%M%S')
-        echo ::set-output name=date_version::$output
+
     -
       name: version
-      run: echo "Version ${{steps.modify.outputs.date_version}}"
+      run: echo "Version ${{steps.version.outputs.new_version}}"
     - 
       name: Build and push
       uses: docker/build-push-action@v2
@@ -46,4 +60,15 @@ jobs:
         push: true
         tags: |
           ghcr.io/${{github.repository}}:latest
-          ghcr.io/${{github.repository}}:${{steps.modify.outputs.date_version}}
+          ghcr.io/${{github.repository}}:${{steps.version.outputs.new_version}}
+
+    - name: Publish Helm chart to GHCR
+      run: |
+          helm package charts/influx-mqtt-sensors --version ${{ steps.version.outputs.new_version }}
+          helm repo index .
+          git config --global user.email "mathew@winters.org.nz"
+          git config --global user.name "Automated Build"
+          git add -f influx-mqtt-sensors-${{ steps.version.outputs.new_version }}.tgz
+          git add -f index.yaml
+          git commit -m "helm chart version ${{ steps.version.outputs.new_version }}"
+          git push
