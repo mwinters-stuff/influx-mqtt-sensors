@@ -11,7 +11,7 @@ image:
   tag: "latest"
 
 imagePullSecrets: 
-  - name: myregistrykey
+  - name: influx-mqtt-sensors-pull-secret
 imageCredentials:
   registry: ghcr.io
   username: mwinters-stuff
