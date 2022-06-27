@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/mwinters-stuff/influx-mqtt-sensors
+  repository: harbor.local.winters.nz/library/influx-mqtt-sensors
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -13,13 +13,13 @@ image:
 imagePullSecrets: 
   - name: influx-mqtt-sensors-pull-secret
 imageCredentials:
-  registry: ghcr.io
-  username: mwinters-stuff
-  password: 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
-  email: mathew@winters.org.nz
+  registry: harbor.local.winters.nz
+  username: robot$github
+  password: OFKlOP9HKJrCknf18tgHwGwBfw4nq6GG
+  email: mathew@winters.nz
 
-nameOverride: "influx-mqtt-sensors-app"
-fullnameOverride: "influx-mqtt-sensors-chart"
+nameOverride: "influx-mqtt-sensors"
+fullnameOverride: "influx-mqtt-sensors"
 
 serviceAccount:
   # Specifies whether a service account should be created
