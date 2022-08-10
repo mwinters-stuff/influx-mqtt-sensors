@@ -30,7 +30,7 @@ jobs:
     - name: Login to Harbor
       uses: docker/login-action@v2
       with:
-        registry: harbor.local.winters.nz
+        registry: harbor.winters.org.nz
         username: robot$github
         password: ${{ secrets.HARBOR }}
     
@@ -51,8 +51,8 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: |
-          harbor.local.winters.nz/library/influx-mqtt-sensors:latest
-          harbor.local.winters.nz/library/influx-mqtt-sensors:${{steps.version.outputs.new_version}}
+          harbor.winters.org.nz/library/influx-mqtt-sensors:latest
+          harbor.winters.org.nz/library/influx-mqtt-sensors:${{steps.version.outputs.new_version}}
 
     - name: Chart version
       uses: mikefarah/yq@master
@@ -71,7 +71,7 @@ jobs:
       with:
         username: robot$github
         password: ${{ secrets.HARBOR }}
-        registry-url: 'https://harbor.local.winters.nz/chartrepo/library'
+        registry-url: 'https://harbor.winters.org.nz/chartrepo/library'
         force: true
         chart-folder: charts/influx-mqtt-sensors
 

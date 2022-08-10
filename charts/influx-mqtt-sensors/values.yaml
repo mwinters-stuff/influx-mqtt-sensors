@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: harbor.local.winters.nz/library/influx-mqtt-sensors
+  repository: harbor.winters.org.nz/library/influx-mqtt-sensors
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -13,7 +13,7 @@ image:
 imagePullSecrets: 
   - name: influx-mqtt-sensors-pull-secret
 imageCredentials:
-  registry: harbor.local.winters.nz
+  registry: harbor.winters.org.nz
   username: robot$github
   password: OFKlOP9HKJrCknf18tgHwGwBfw4nq6GG
   email: mathew@winters.nz
