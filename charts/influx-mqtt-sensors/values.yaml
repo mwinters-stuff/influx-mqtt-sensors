@@ -13,10 +13,10 @@ image:
 imagePullSecrets: 
   - name: influx-mqtt-sensors-pull-secret
 imageCredentials:
-  registry: harbor.winters.org.nz
-  username: robot$github
-  password: OFKlOP9HKJrCknf18tgHwGwBfw4nq6GG
-  email: mathew@winters.nz
+  registry: harbor.local.winters.nz
+  username: ""
+  password: ""
+  email: ""
 
 nameOverride: "influx-mqtt-sensors"
 fullnameOverride: "influx-mqtt-sensors"
