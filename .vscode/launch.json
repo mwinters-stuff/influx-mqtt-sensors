@@ -12,8 +12,8 @@
       "env":
       {
         "INFLUX_BUCKET":"demo/autogen",
-        "INFLUX_ORG":"winters.nz",
-        "INFLUX_TOKEN":"t404FS9X2s_2H5RCQSa72bxVFIsJQl1V5zXn_GWmWhKzmzo9b5jpNlbPlwQ-FtJy31Bp_vb5rdAu0Q89GRoVRQ==",
+        "INFLUX_ORG":"org.nz",
+        "INFLUX_TOKEN":"TOK",
         "INFLUX_URL":"http://influxdb:8086",
 
         "MQTT_USERNAME":"influxdb",

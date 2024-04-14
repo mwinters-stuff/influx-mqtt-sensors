@@ -10,14 +10,6 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-imagePullSecrets: 
-  - name: influx-mqtt-sensors-pull-secret
-imageCredentials:
-  registry: harbor.local.winters.nz
-  username: ""
-  password: ""
-  email: ""
-
 nameOverride: "influx-mqtt-sensors"
 fullnameOverride: "influx-mqtt-sensors"
 
@@ -73,8 +65,8 @@ affinity: {}
 env:
   normal:
     INFLUX_URL: "http://influxdb:8086"
-    INFLUX_BUCKET: "winters/autogen"
-    INFLUX_ORG: "winters.nz"
+    INFLUX_BUCKET: "bucket/autogen"
+    INFLUX_ORG: "org.nz"
     MQTT_USERNAME: "influxdb"
     MQTT_HOSTNAME: "192.168.30.14"
     MQTT_PORT: "1883"
