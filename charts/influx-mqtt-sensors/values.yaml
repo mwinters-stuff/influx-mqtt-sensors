@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: harbor.winters.org.nz/library/influx-mqtt-sensors
+  repository: ghcr.io/mwinters-stuff/influx-mqtt-sensors
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
